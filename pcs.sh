@@ -1,4 +1,4 @@
-# nfs-HA with drbd storage
+# dual primary drbd with pcs for ASM
 echo "choise 1 to install pcs on all nodes."
 echo "choise 2 to config pcs cluster only one node."
 read -p "pls input your choise [1]: " n
