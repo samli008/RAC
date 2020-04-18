@@ -46,8 +46,8 @@ vi ~/.bash_profile
 umask 022
 export ORACLE_BASE=/opt/oracle/app/oracle
 export ORACLE_HOME=$ORACLE_BASE/product/19c/dbhome_1
-export ORACLE_UNQNAME=itpuxdb
-export ORACLE_SID=itpuxdb1
+export ORACLE_UNQNAME=oracledb
+export ORACLE_SID=oracledb1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
 
