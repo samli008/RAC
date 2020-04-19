@@ -68,3 +68,10 @@ export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
 
 source ~/.bash_profile
 env |grep ORACLE
+
+# install grid on one node
+su - grid
+cd $ORACLE_HOME
+unzip /home/grid/LINUX.X64_193000_grid_home.zip
+./gridSetup.sh
+
