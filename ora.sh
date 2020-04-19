@@ -70,6 +70,8 @@ source ~/.bash_profile
 env |grep ORACLE
 
 # install grid on one node
+systemctl set-default graphical
+systemctl set-default multi-user
 yum -y install tigervnc-server
 su - grid
 vncserver :1
