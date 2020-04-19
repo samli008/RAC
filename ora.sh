@@ -12,6 +12,7 @@
 
 # install environment both nodes
 yum -y install oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
+rpm -ivh cvuqdisk-1.0.10-1.rpm
 
 # install Desktop
 yum -y groups install "GNOME Desktop"
