@@ -70,7 +70,9 @@ source ~/.bash_profile
 env |grep ORACLE
 
 # install grid on one node
+yum -y install tigervnc-server
 su - grid
+vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
 ./gridSetup.sh
