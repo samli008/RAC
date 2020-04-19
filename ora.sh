@@ -106,3 +106,10 @@ cd $ORACLE_HOME
 unzip /home/oracle/LINUX.X64_193000_db_home.zip
 ./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "ora1 ora2" -advanced -noPromptPassphrase
 ./runInstaller
+
+# create database
+## check oracle dir permission as root on both nodes
+cd /opt/oracle/app/oracle/product/19c/dbhome_1/bin
+ll -d oracle
+chown oracle:asmadmin oracle
+chmod 6751 oracle
