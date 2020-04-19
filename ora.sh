@@ -113,3 +113,6 @@ cd /opt/oracle/app/oracle/product/19c/dbhome_1/bin
 ll -d oracle
 chown oracle:asmadmin oracle
 chmod 6751 oracle
+/opt/oracle/app/19c/grid/bin/crsctl stop crs
+/opt/oracle/app/19c/grid/bin/crsctl start crs
+/opt/oracle/app/19c/grid/bin/crsctl check crs
