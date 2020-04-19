@@ -69,6 +69,9 @@ export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
 source ~/.bash_profile
 env |grep ORACLE
 
+# prepare ASM disk on both nodes
+chown grid:oinstall /dev/drbd*
+
 # install grid on one node
 systemctl set-default graphical
 systemctl set-default multi-user
@@ -78,4 +81,3 @@ vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
 ./gridSetup.sh
-
