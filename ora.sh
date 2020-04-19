@@ -119,3 +119,57 @@ chmod 6751 oracle
 
 su - oracle
 dbca
+
+# operation RAC database
+
+sqlplus "/as sysdba"
+set line 200 pages 100
+select instance_name,status,host_name from gv$instance;
+INSTANCE_NAME	 STATUS       HOST_NAME
+---------------- ------------ ----------------------------------------------------------------
+oracledb1		 OPEN	      ora1
+oracledb2		 OPEN	      ora2
+
+create tablespace liyang01
+logging
+datafile '+DGDATA01/racdb/datafile/liyang01.ora' size 10M autoextend
+on next 10240k extent management local segment space
+management auto;
+
+select name from v$tablespace;
+
+select name from v$datafile;
+
+drop tablespace liyang01 including contents and datafiles;
+
+create user liyang profile "DEFAULT"
+identified by liyang default tablespace liyang01
+temporary tablespace temp
+account unlock;
+
+select * from all_users;
+s
+grant dba to liyang;
+
+drop user liyang cascade;
+
+conn liyang/liyang
+
+create table t01
+(
+ID NUMBER(12),
+C_DATE DATE
+);
+
+insert into t01 values(1,sysdate);
+insert into t01 values(2,sysdate);
+insert into t01 values(3,sysdate);
+insert into t01 values(4,sysdate);
+
+commit;
+
+select * from t01
+
+select table_name from tabs;
+
+show user;
