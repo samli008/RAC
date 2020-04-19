@@ -105,3 +105,4 @@ su - oracle
 cd $ORACLE_HOME
 unzip /home/oracle/LINUX.X64_193000_db_home.zip
 ./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "ora1 ora2" -advanced -noPromptPassphrase
+./runInstaller
