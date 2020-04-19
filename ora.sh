@@ -80,6 +80,7 @@ su - grid
 vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
+./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "ora1 ora2" -advanced -noPromptPassphrase
 ./gridSetup.sh
 
 # grid check
@@ -97,3 +98,9 @@ select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
 
 create diskgroup DGDATA01 external redundancy disk '/dev/iscsi/asm-data';
 alter diskgroup DGDATA01 mount;
+
+# install oracle
+su - oracle
+cd $ORACLE_HOME
+unzip /home/oracle/LINUX.X64_193000_db_home.zip
+./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "ora1 ora2" -advanced -noPromptPassphrase
