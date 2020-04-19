@@ -81,3 +81,19 @@ vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
 ./gridSetup.sh
+
+# grid check
+su - grid
+ocrcheck
+crsctl query css votedisk
+crsctl status res -t
+crs_stat -t
+lsnrctl status
+asmcmd lsdg 
+
+sqlplus "/as sysasm"
+desc v$asm_diskgroup;
+select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
+
+create diskgroup DGDATA01 external redundancy disk '/dev/iscsi/asm-data';
+alter diskgroup DGDATA01 mount;
