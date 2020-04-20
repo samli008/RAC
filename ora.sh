@@ -97,8 +97,10 @@ sqlplus "/as sysasm"
 desc v$asm_diskgroup;
 select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
 
-create diskgroup DGDATA01 external redundancy disk '/dev/iscsi/asm-data';
+create diskgroup DGDATA01 external redundancy disk '/dev/drbd1';
+alter diskgroup DGDATA01 dismount;
 alter diskgroup DGDATA01 mount;
+drop diskgroup DGDATA01;
 
 # install oracle
 su - oracle
