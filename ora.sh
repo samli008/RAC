@@ -132,16 +132,9 @@ INSTANCE_NAME	 STATUS       HOST_NAME
 oracledb1		 OPEN	      ora1
 oracledb2		 OPEN	      ora2
 
-create tablespace liyang01
-logging
-datafile '+DGDATA01/racdb/datafile/liyang01.ora' size 10M autoextend
-on next 10240k extent management local segment space
-management auto;
-
+create tablespace liyang01 datafile '+DATA' size 20m;
 select name from v$tablespace;
-
 select name from v$datafile;
-
 drop tablespace liyang01 including contents and datafiles;
 
 create user liyang profile "DEFAULT"
