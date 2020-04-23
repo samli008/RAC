@@ -15,3 +15,8 @@ cat oracle_db1-19c.conf
 
 cd /etc/init.d/
 cp oracledb_ORCLCDB-19c oracledb_db1-19c
+sed -i s/ORCLCDB/db1/g oracledb_db1-19c
+sed -i s/ORCLPDB1/pdb1/g oracledb_db1-19c
+sed -i s/AL32UTF8/ZHS16GBK/g oracledb_db1-19c
+
+/etc/init.d/oracledb_db1-19c configure
