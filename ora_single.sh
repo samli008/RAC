@@ -26,8 +26,8 @@ cat >> /home/oracle/.bash_profile << EOF
 umask 022
 export ORACLE_BASE=/opt/oracle
 export ORACLE_HOME=\$ORACLE_BASE/product/19c/dbhome_1
-export ORACLE_UNQNAME=oracledb
-export ORACLE_SID=oracledb1
+export ORACLE_UNQNAME=db1
+export ORACLE_SID=db1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 export PATH=.:\$PATH:\$ORACLE_HOME/bin
 EOF
