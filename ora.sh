@@ -143,9 +143,7 @@ temporary tablespace temp
 account unlock;
 
 select * from all_users;
-s
 grant dba to liyang;
-
 drop user liyang cascade;
 
 conn liyang/liyang
