@@ -55,7 +55,7 @@ make && make install
 set line 200 pages 100
 select instance_name,status,host_name from gv$instance;
 
-create tablespace liyang01 datafile '+DATA' size 20m;
+create tablespace liyang01 datafile 'DB1' size 20m;
 select name from v$tablespace;
 select name from v$datafile;
 drop tablespace liyang01 including contents and datafiles;
@@ -66,9 +66,7 @@ temporary tablespace temp
 account unlock;
 
 select * from all_users;
-s
 grant dba to liyang;
-
 drop user liyang cascade;
 
 conn liyang/liyang
