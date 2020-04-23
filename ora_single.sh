@@ -33,6 +33,8 @@ export ORACLE_UNQNAME=db1
 export ORACLE_SID=db1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 export PATH=.:\$PATH:\$ORACLE_HOME/bin
+alias sqlplus="rlwrap sqlplus"
+alias rman="rlwrap rman"
 EOF
 
 # stop and start database
@@ -41,3 +43,14 @@ EOF
 su - oracle
 lsnrctl status
 ps -ef |grep smon
+
+# config sqlplus
+yum -y install make gcc readline readline-devel
+tar zxvf rlwrap-0.42.tar.gz
+cd rlwrap-0.42
+./configure
+make && make install
+
+# sqlplus "/as sysdba"
+et line 200 pages 100
+select instance_name,status,host_name from gv$instance;
