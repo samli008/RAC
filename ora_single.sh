@@ -52,5 +52,40 @@ cd rlwrap-0.42
 make && make install
 
 # sqlplus "/as sysdba"
-et line 200 pages 100
+set line 200 pages 100
 select instance_name,status,host_name from gv$instance;
+
+create tablespace liyang01 datafile '+DATA' size 20m;
+select name from v$tablespace;
+select name from v$datafile;
+drop tablespace liyang01 including contents and datafiles;
+
+create user liyang profile "DEFAULT"
+identified by liyang default tablespace liyang01
+temporary tablespace temp
+account unlock;
+
+select * from all_users;
+s
+grant dba to liyang;
+
+drop user liyang cascade;
+
+conn liyang/liyang
+
+create table t01
+(
+ID NUMBER(12),
+C_DATE DATE
+);
+
+insert into t01 values(1,sysdate);
+insert into t01 values(2,sysdate);
+insert into t01 values(3,sysdate);
+insert into t01 values(4,sysdate);
+
+commit;
+
+select * from t01
+select table_name from tabs;
+show user;
