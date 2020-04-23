@@ -31,3 +31,9 @@ export ORACLE_SID=oracledb1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 export PATH=.:\$PATH:\$ORACLE_HOME/bin
 EOF
+
+# stop and start database
+/etc/init.d/oracledb_db1-19c stop
+/etc/init.d/oracledb_db1-19c start
+su - oracle
+lsnrctl status
