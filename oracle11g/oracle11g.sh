@@ -23,7 +23,6 @@ cd /soft/database
 ./runInstaller -silent -ignoreSysPrereqs -showProgress -responseFile /home/oracle/db_install.rsp
 
 1. /oracle/app/oracle/oraInventory/orainstRoot.sh
-
 2. /oracle/app/oracle/product/11.2.0.4/db_1/root.sh
 
 dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbName db01 -sysPassword oracle -systemPassword oracle
