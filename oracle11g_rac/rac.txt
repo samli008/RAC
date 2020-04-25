@@ -1,3 +1,19 @@
+# config /etc/hosts
+#public ip ent1
+192.168.6.47    rac1
+192.168.6.48    rac2
+
+#priv ip ent2
+192.168.100.47  rac1prv
+192.168.100.48  rac2prv
+
+#vip ip
+192.168.6.49    rac1vip
+192.168.6.50    rac2vip
+
+#scan ip
+192.168.6.51    racscan
+
 # run script with rac.sh on both Centos 6.5 nodes
 sh rac.sh
 
