@@ -1,47 +1,67 @@
-# run script with rac.sh on both Centos 6.5 nodes
-sh rac.sh
+#public ip ent1
+192.168.100.41	rac1
+192.168.100.42	rac2
+192.168.100.43	rac3
+192.168.100.44	rac4
+#priv ip ent2
+172.168.101.41	rac1prv
+172.168.101.42  rac2prv
+172.168.101.43  rac3prv
+172.168.101.44  rac4prv
+#vip ip
+192.168.100.45	rac1vip
+192.168.100.46	rac2vip
+192.168.100.47  rac3vip
+192.168.100.48  rac4vip
+#scan ip
+192.168.100.49	racscan
 
-#install grid RAC
+vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
-[root@rac1 ~]# /etc/init.d/oracleasm configure  #on each ondes
-Configuring the Oracle ASM library driver.
+KERNEL=="sdb1",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="sdc1",NAME="asmdisk_ocr2",OWNER="grid",GROUP="asmadmin",MODE="0660"
 
-This will configure the on-boot properties of the Oracle ASM library
-driver.  The following questions will determine whether the driver is
-loaded on boot and what permissions it will have.  The current values
-will be shown in brackets ('[]').  Hitting <ENTER> without typing an
-answer will keep that current value.  Ctrl-C will abort.
+vi /etc/udev/rules.d/12-dm-permissions.rules
 
-Default user to own the driver interface []: grid
-Default group to own the driver interface []: asmadmin
-Start Oracle ASM library driver on boot (y/n) [n]: y
-Scan for Oracle ASM disks on boot (y/n) [y]: y
-Writing Oracle ASM library driver configuration: done
-Initializing the Oracle ASMLib driver:                     [  OK  ]
-Scanning the system for Oracle ASMLib disks:               [  OK  ]
+ENV{DM_NAME}=="ocr",OWNER:="grid",GROUP:="asmadmin",MODE:="660",SYMLINK+="iscsi/asm-$env{DM_NAME}"
+ENV{DM_NAME}=="data",OWNER:="grid",GROUP:="asmadmin",MODE:="660",SYMLINK+="iscsi/asm-$env{DM_NAME}"
 
-#with root user
-oracleasm createdisk dggrid1 /dev/sdd1
-oracleasm createdisk dgdata01 /dev/sde1
-oracleasm scandisks
-oracleasm listdisks
+cp /usr/share/doc/device-mapper-multipath-0.4.9/multipath.conf /etc/
 
-#on each node run with oracle and grid user
+chkconfig multipathd on
+service multipathd start
+
+service multipathd restart
+
+ls -l /dev/dm*
+
+ls -l /dev/iscsi/*
+
+/dev/iscsi/asm-data
+/dev/iscsi/asm-ocr
+
+
+
+# su - oracle  （su - grid）
+
 ssh-keygen -t rsa
 ssh-keygen -t dsa
 
-#on each node run with oracle and grid user
 cat ~/.ssh/id_rsa.pub >> ./.ssh/authorized_keys
 cat ~/.ssh/id_dsa.pub >> ./.ssh/authorized_keys
 ssh rac2 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ssh rac2 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ssh rac3 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ssh rac3 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ssh rac4 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ssh rac4 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
 scp ~/.ssh/authorized_keys rac2:~/.ssh/authorized_keys
+scp ~/.ssh/authorized_keys rac3:~/.ssh/authorized_keys
+scp ~/.ssh/authorized_keys rac4:~/.ssh/authorized_keys
 
-#on each node run with oracle and grid user
-ssh rac1 date
-ssh rac2 date
 
 #on install node run with root user
+
 chown -R grid:oinstall /soft
 
 ./runInstaller -showProgress -silent -ignorePrereq -responseFile /home/grid/grid.rsp
@@ -51,7 +71,7 @@ chown -R grid:oinstall /soft
 /oracle/app/11.2.0/grid/root.sh
 
 #on installer node run with grid user
-/oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/soft/cfgrsp.properties
+/oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/home/grid/cfgrsp.properties
 
 oracle.assistants.server|S_SYSPASSWORD=oracle
 oracle.assistants.server|S_SYSTEMPASSWORD=oracle
@@ -73,7 +93,7 @@ sqlplus "/as sysasm"
 desc v$asm_diskgroup;
 select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
 
-create diskgroup DGDATA01 external redundancy disk '/dev/oracleasm/disks/DGDATA01';
+create diskgroup DGDATA01 external redundancy disk '/dev/iscsi/asm-data';
 alter diskgroup DGDATA01 mount;
 
 #install oracle software
@@ -116,7 +136,7 @@ temporary tablespace temp
 account unlock;
 
 select * from all_users;
-
+s
 grant dba to liyang;
 
 drop user liyang cascade;
