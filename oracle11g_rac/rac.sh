@@ -149,6 +149,7 @@ if [ oracle = "oracle" ] || [ oracle = "grid" ]; then
 fi
 EOF
 
+rpm -ivh kmod-oracleasm-2.0.6.rh1-3.el6.x86_64.rpm
 rpm -ivh oracleasmlib-2.0.4-1.el6.x86_64.rpm
 rpm -ivh oracleasm-support-2.1.8-1.el6.x86_64.rpm
 
