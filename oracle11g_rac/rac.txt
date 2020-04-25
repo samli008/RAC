@@ -1,4 +1,4 @@
-# config /etc/hosts
+# config /etc/hosts with ssh-keygen trust
 #public ip ent1
 192.168.6.47    rac1
 192.168.6.48    rac2
