@@ -90,7 +90,7 @@ crsctl query css votedisk
 crsctl status res -t
 crs_stat -t
 lsnrctl status
-asmcmd lsdg  #su - grid 
+asmcmd lsdg 
 
 sqlplus "/as sysasm"
 desc v$asm_diskgroup;
