@@ -1,0 +1,192 @@
+#install grid RAC
+
+[root@rac1 ~]# /etc/init.d/oracleasm configure  #on each ondes
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets ('[]').  Hitting <ENTER> without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: grid
+Default group to own the driver interface []: asmadmin
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+
+#with root user
+oracleasm createdisk dggrid1 /dev/sdd1
+oracleasm createdisk dgdata01 /dev/sde1
+oracleasm scandisks
+oracleasm listdisks
+
+#on each node run with oracle and grid user
+ssh-keygen -t rsa
+ssh-keygen -t dsa
+
+#on each node run with oracle and grid user
+cat ~/.ssh/id_rsa.pub >> ./.ssh/authorized_keys
+cat ~/.ssh/id_dsa.pub >> ./.ssh/authorized_keys
+ssh rac2 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ssh rac2 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+scp ~/.ssh/authorized_keys rac2:~/.ssh/authorized_keys
+
+#on each node run with oracle and grid user
+ssh rac1 date
+ssh rac2 date
+
+#on install node run with root user
+chown -R grid:oinstall /soft
+
+./runInstaller -showProgress -silent -ignorePrereq -responseFile /home/grid/grid.rsp
+
+#on each node run with root user
+/oracle/app/oraInventory/orainstRoot.sh
+/oracle/app/11.2.0/grid/root.sh
+
+#on installer node run with grid user
+/oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/soft/cfgrsp.properties
+
+oracle.assistants.server|S_SYSPASSWORD=oracle
+oracle.assistants.server|S_SYSTEMPASSWORD=oracle
+oracle.assistants.server|S_SYSMANPASSWORD=oracle
+oracle.assistants.server|S_DBSNMPPASSWORD=oracle
+oracle.assistants.server|S_HOSTUSERPASSWORD=oracle
+oracle.assistants.server|S_ASMSNMPPASSWORD=oracle
+
+su - grid
+
+ocrcheck
+crsctl query css votedisk
+crsctl status res -t
+crs_stat -t
+lsnrctl status
+asmcmd lsdg  #su - grid 
+
+sqlplus "/as sysasm"
+desc v$asm_diskgroup;
+select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
+
+create diskgroup DGDATA01 external redundancy disk '/dev/oracleasm/disks/DGDATA01';
+alter diskgroup DGDATA01 mount;
+
+#install oracle software
+
+chown -R oracle:oinstall /soft
+
+su - oracle
+
+./runInstaller -showProgress -ignorePrereq -silent -force -responseFile /home/oracle/db_rac.rsp
+
+/oracle/app/oracle/product/11.2.0/db_1/root.sh  #on each node run with root user
+
+#create db
+
+dbca -silent -responseFile /home/oracle/dbca_rac.rsp
+
+sqlplus "/as sysdba"
+set line 200 pages 100
+select instance_name,status,host_name from gv$instance;
+INSTANCE_NAME	 STATUS       HOST_NAME
+---------------- ------------ ----------------------------------------------------------------
+racdb2		 OPEN	      rac2
+racdb1		 OPEN	      rac1
+
+create tablespace liyang01
+logging
+datafile '+DGDATA01/racdb/datafile/liyang01.ora' size 10M autoextend
+on next 10240k extent management local segment space
+management auto;
+
+select name from v$tablespace;
+
+select name from v$datafile;
+
+drop tablespace liyang01 including contents and datafiles;
+
+create user liyang profile "DEFAULT"
+identified by liyang default tablespace liyang01
+temporary tablespace temp
+account unlock;
+
+select * from all_users;
+
+grant dba to liyang;
+
+drop user liyang cascade;
+
+conn liyang/liyang
+
+create table t01
+(
+ID NUMBER(12),
+C_DATE DATE
+);
+
+insert into t01 values(1,sysdate);
+insert into t01 values(2,sysdate);
+insert into t01 values(3,sysdate);
+insert into t01 values(4,sysdate);
+
+commit;
+
+select * from t01
+
+select table_name from tabs;
+
+show user;
+
+#client testing 
+
+D:\app\Administrator\product\11.2.0\client_1\network\admin\tnsnames.ora
+
+racdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = racscan)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = racdb)
+    )
+  )
+
+racdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = racscan)(PORT = 1521))
+    (LOAD_BALANCE = yes)
+    (FAILOVER = on)
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = racdb)
+      (FAILOVER_MODE =
+        (TYPE = select)
+	(METHOD = BASIC)
+      )
+    )
+  )
+
+open cmd type:
+
+sqlplus /nolog
+conn system/oracle@racdb;
+select instance_name,status from v$instance;
+
+su - grid
+
+ocrcheck
+crs_stat -t
+
+srvctl status database -d racdb
+srvctl status asm -a
+srvctl config scan
+srvctl status scan
+srvctl config vip -n rac1
+srvctl status listener
+srvctl config listener -a
+
+crsctl check cluster -all
+
+crsctl stop crs
+crsctl start crs
