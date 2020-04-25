@@ -121,11 +121,7 @@ INSTANCE_NAME	 STATUS       HOST_NAME
 racdb2		 OPEN	      rac2
 racdb1		 OPEN	      rac1
 
-create tablespace liyang01
-logging
-datafile '+DGDATA01/racdb/datafile/liyang01.ora' size 10M autoextend
-on next 10240k extent management local segment space
-management auto;
+create tablespace liyang01 datafile '+DGDATA01' size 20m;
 
 select name from v$tablespace;
 
