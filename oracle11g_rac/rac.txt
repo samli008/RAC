@@ -14,6 +14,9 @@
 #scan ip
 192.168.6.51    racscan
 
+# install yum packages
+sh yum
+
 # run script with rac.sh on both Centos 6.5 nodes
 sh rac.sh
 
@@ -58,7 +61,10 @@ ssh rac1 date
 ssh rac2 date
 
 #on install node run with root user
+su - grid
 chown -R grid:oinstall /soft
+unzip p13390677_112040_Linux-x86-64_1of7.zip && unzip p13390677_112040_Linux-x86-64_2of7.zip
+unzip unzip p13390677_112040_Linux-x86-64_3of7.zip
 
 ./runInstaller -showProgress -silent -ignorePrereq -responseFile /home/grid/grid.rsp
 
