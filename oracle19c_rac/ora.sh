@@ -33,6 +33,14 @@ useradd -u 6002 -g oinstall -G dba,asmdba,asmadmin oracle
 echo "oracle" | passwd --stdin grid
 echo "oracle" | passwd --stdin oracle
 
+# prepare ASM disk on both nodes
+cat > /etc/udev/rules.d/99-oracle-asmdevices.rules << EOF
+KERNEL=="drbd0",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="drbd1",NAME="asmdisk_data1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+EOF
+systemctl restart systemd-udev-trigger
+ll /dev |grep asm
+
 # create install dir both nodes
 mkdir /opt/oracle
 mkdir -p /opt/oracle/app/grid
@@ -70,8 +78,6 @@ export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
 source ~/.bash_profile
 env |grep ORACLE
 
-# prepare ASM disk on both nodes
-chown grid:oinstall /dev/drbd*
 
 # install grid on one node
 systemctl set-default graphical
