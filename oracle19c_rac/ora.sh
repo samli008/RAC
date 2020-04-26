@@ -1,14 +1,14 @@
 # config hosts
-192.168.20.131 ora1
-192.168.20.132 ora2
+192.168.6.52 rac1
+192.168.6.53 rac2
 
-192.168.100.131 ora1prv
-192.168.100.132 ora2prv
+192.168.100.52 rac1prv
+192.168.100.53 rac2prv
 
-192.168.20.133 ora1vip
-192.168.20.134 ora2vip
+192.168.6.54 rac1vip
+192.168.6.55 rac2vip
 
-192.168.20.135 scanvip
+192.168.6.56 scanvip
 
 # install environment both nodes
 yum -y install oracle-database-preinstall-19c-1.0-1.el7.x86_64.rpm
