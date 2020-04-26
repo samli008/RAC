@@ -97,7 +97,7 @@ su - grid
 vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
-./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "ora1 ora2" -advanced -noPromptPassphrase
+./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "rac1 rac2" -advanced -noPromptPassphrase
 ./gridSetup.sh
 
 # grid check
@@ -122,7 +122,7 @@ drop diskgroup DGDATA01;
 su - oracle
 cd $ORACLE_HOME
 unzip /home/oracle/LINUX.X64_193000_db_home.zip
-./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "ora1 ora2" -advanced -noPromptPassphrase
+./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "rac1 rac2" -advanced -noPromptPassphrase
 ./runInstaller
 
 # create database
