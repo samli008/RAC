@@ -33,6 +33,13 @@ useradd -u 6002 -g oinstall -G dba,asmdba,asmadmin oracle
 echo "oracle" | passwd --stdin grid
 echo "oracle" | passwd --stdin oracle
 
+# config sqlplus
+yum -y install make gcc readline readline-devel
+tar zxvf rlwrap-0.42.tar.gz
+cd rlwrap-0.42
+./configure
+make && make install
+
 # prepare ASM disk on both nodes
 cat > /etc/udev/rules.d/99-oracle-asmdevices.rules << EOF
 KERNEL=="drbd0",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
@@ -59,6 +66,8 @@ export ORACLE_SID=+ASM1
 export ORACLE_BASE=/opt/oracle/app/grid
 export ORACLE_HOME=/opt/oracle/app/19c/grid
 export PATH=.:\$PATH:\$HOME/bin:\$ORACLE_HOME/bin
+alias sqlplus="rlwrap sqlplus"
+alias rman="rlwrap rman"
 EOF
 
 su - grid
@@ -73,6 +82,8 @@ export ORACLE_UNQNAME=oracledb
 export ORACLE_SID=oracledb1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 export PATH=.:\$PATH:\$HOME/bin:\$ORACLE_HOME/bin
+alias sqlplus="rlwrap sqlplus"
+alias rman="rlwrap rman"
 EOF
 
 su - oracle
