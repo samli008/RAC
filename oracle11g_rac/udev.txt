@@ -18,8 +18,8 @@
 
 vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
-KERNEL=="sdb1",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
-KERNEL=="sdc1",NAME="asmdisk_ocr2",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="sdb",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="sdc",NAME="asmdisk_data1",OWNER="grid",GROUP="asmadmin",MODE="0660"
 
 vi /etc/udev/rules.d/12-dm-permissions.rules
 
