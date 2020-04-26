@@ -65,7 +65,7 @@ su - grid
 env |grep ORACLE
 
 # oracle env config both nodes
-cat >> /home/grid/.bash_profile << EOF
+cat >> /home/oracle/.bash_profile << EOF
 umask 022
 export ORACLE_BASE=/opt/oracle/app/oracle
 export ORACLE_HOME=\$ORACLE_BASE/product/19c/dbhome_1
