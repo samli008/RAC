@@ -30,8 +30,8 @@ groupadd -g 5005 asmadmin
 useradd -u 6001 -g oinstall -G asmadmin,asmdba,asmoper grid
 useradd -u 6002 -g oinstall -G dba,asmdba,asmadmin oracle
 
-passwd oracle
-passwd grid
+echo "oracle" | passwd --stdin grid
+echo "oracle" | passwd --stdin oracle
 
 # create install dir both nodes
 mkdir /opt/oracle
