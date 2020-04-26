@@ -78,7 +78,6 @@ export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
 source ~/.bash_profile
 env |grep ORACLE
 
-
 # install grid on one node
 systemctl set-default graphical
 systemctl set-default multi-user
