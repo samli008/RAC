@@ -35,28 +35,31 @@ resource drbd0 {
 net {
 allow-two-primaries;
 }
-  disk /dev/vg1/lv1;
+  disk /dev/vdb;
   device /dev/drbd0;
   meta-disk internal;
-  on c03 {
-    address 192.168.20.143:7789;
+  on rac1 {
+    address 192.168.100.52:7789;
   }
-  on c04 {
-    address 192.168.20.144:7789;
+  on rac2 {
+    address 192.168.100.53:7789;
   }
 }
 EOF
 
 cat > /etc/drbd.d/drbd1.res << EOF
 resource drbd1 {
-  disk /dev/vg1/lv2;
+net {
+allow-two-primaries;
+}
+  disk /dev/vdc;
   device /dev/drbd1;
   meta-disk internal;
-  on c03 {
-    address 192.168.20.143:7788;
+  on rac1 {
+    address 192.168.100.52:7788;
   }
-  on c04 {
-    address 192.168.20.144:7788;
+  on rac2 {
+    address 192.168.100.53:7788;
   }
 }
 EOF
