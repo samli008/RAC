@@ -53,29 +53,29 @@ chown -R oracle:oinstall /opt/oracle/app/oracle
 chmod -R 775 /opt/oracle
 
 # grid env config both nodes
-su - grid
-vi ~/.bash_profile
+cat >> /home/grid/.bash_profile << EOF
 umask 022
 export ORACLE_SID=+ASM1
 export ORACLE_BASE=/opt/oracle/app/grid
 export ORACLE_HOME=/opt/oracle/app/19c/grid
-export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
+export PATH=.:\$PATH:\$HOME/bin:\$ORACLE_HOME/bin
+EOF
 
-source ~/.bash_profile
+su - grid
 env |grep ORACLE
 
 # oracle env config both nodes
-su - oracle
-vi ~/.bash_profile
+cat >> /home/grid/.bash_profile << EOF
 umask 022
 export ORACLE_BASE=/opt/oracle/app/oracle
-export ORACLE_HOME=$ORACLE_BASE/product/19c/dbhome_1
+export ORACLE_HOME=\$ORACLE_BASE/product/19c/dbhome_1
 export ORACLE_UNQNAME=oracledb
 export ORACLE_SID=oracledb1
 export NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
-export PATH=.:$PATH:$HOME/bin:$ORACLE_HOME/bin
+export PATH=.:\$PATH:\$HOME/bin:\$ORACLE_HOME/bin
+EOF
 
-source ~/.bash_profile
+su - oracle
 env |grep ORACLE
 
 # install grid on one node
