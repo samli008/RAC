@@ -1,0 +1,97 @@
+DRBD - World's Fastest SDS
+
+# install and config drbd resource on two nodes
+rpm --import http://elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+
+cat > /etc/yum.repos.d/drbd.repo << EOF
+[base]
+name=drbd90
+baseurl=file:///root/drbd90
+enabled=1
+gpgcheck=0
+EOF
+
+yum -y install drbd90-utils kmod-drbd90
+
+systemctl enable drbd
+systemctl start drbd
+
+lsmod |grep drbd
+
+cat > /etc/drbd.d/global_common.conf << EOF
+global {
+  usage-count no;
+}
+common {
+  net {
+    protocol C;
+  }
+}
+EOF
+
+cat > /etc/drbd.d/drbd0.res << EOF
+resource drbd0 {
+net {
+allow-two-primaries;
+}
+  disk /dev/vg1/lv1;
+  device /dev/drbd0;
+  meta-disk internal;
+  on c03 {
+    address 192.168.20.143:7789;
+  }
+  on c04 {
+    address 192.168.20.144:7789;
+  }
+}
+EOF
+
+cat > /etc/drbd.d/drbd1.res << EOF
+resource drbd1 {
+  disk /dev/vg1/lv2;
+  device /dev/drbd1;
+  meta-disk internal;
+  on c03 {
+    address 192.168.20.143:7788;
+  }
+  on c04 {
+    address 192.168.20.144:7788;
+  }
+}
+EOF
+
+# init resource on all nodes
+drbdadm create-md drbd0
+
+# drbdadm start resource on two nodes
+drbdadm up drbd0
+
+# set primary device on current node
+drbdadm primary drbd0 --force
+
+# view resource sync
+drbdadm status drbd0
+drbdsetup status drbd0 --verbose --statistics
+
+# view and switchover resource role
+drbdadm role drbd0
+drbdadm primary drbd0
+drbdadm secondary drbd0
+
+# view resource status
+drbdadm dstate data
+drbdadm cstate data
+
+# mkfs on /dev/drbd0 umount == secondary; mount == primary
+mkfs.xfs /dev/drbd0
+mount /dev/drbd0 /mnt
+umount /mnt
+
+# split brain
+1. on secondary node
+drbdadm secondary drbd0
+drbdadm -- --discard-my-data connect drbd0
+
+2. on primary node
+drbdadm connect drbd0
