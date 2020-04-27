@@ -100,6 +100,8 @@ unzip /home/grid/LINUX.X64_193000_grid_home.zip
 ./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "rac1 rac2" -advanced -noPromptPassphrase
 ./gridSetup.sh
 
+asmca
+
 # grid check
 su - grid
 ocrcheck
