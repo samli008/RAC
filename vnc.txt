@@ -1,0 +1,11 @@
+# GNOME Desktop
+yum -y groups install "GNOME Desktop"
+
+# install vnc server
+yum -y install tigervnc-server
+
+# login user vnc default port 5901
+su - grid
+vncserver :1
+su - oracle
+vncserver :2
