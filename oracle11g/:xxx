@@ -29,39 +29,8 @@ dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbName db01 -sy
 
 
 sqlplus "/as sysdba"
+select name from v$datafile;
 set line 200 pages 100
 select instance_name,status,host_name from gv$instance;
-
-select name from v$datafile;
-select name from v$tablespace;
 create tablespace liyang01 datafile '/oracle/app/oracle/oradata/db01/liyang01.dbf' size 20m;
 
-drop tablespace liyang01 including contents and datafiles;
-
-create user liyang profile "DEFAULT"
-identified by liyang default tablespace liyang01
-temporary tablespace temp
-account unlock;
-
-select * from all_users;
-grant dba to liyang;
-drop user liyang cascade;
-
-conn liyang/liyang
-
-create table t01
-(
-ID NUMBER(12),
-C_DATE DATE
-);
-
-insert into t01 values(1,sysdate);
-insert into t01 values(2,sysdate);
-insert into t01 values(3,sysdate);
-insert into t01 values(4,sysdate);
-
-commit;
-
-select * from t01
-select table_name from tabs;
-show user;
