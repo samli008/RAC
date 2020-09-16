@@ -1,5 +1,5 @@
 # init centos6.x system with db01 script
-echo "192.168.6.43 c61" >> /etc/hosts
+echo "192.168.6.71 c05" >> /etc/hosts
 sh db01
 
 # install rlwrap for sqlplus
