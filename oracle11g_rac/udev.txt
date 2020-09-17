@@ -56,7 +56,7 @@ unzip p13390677_112040_Linux-x86-64_3of7.zip
 /oracle/app/oraInventory/orainstRoot.sh
 /oracle/app/11.2.0/grid/root.sh
 
-#on installer node run with grid user
+#on install node run with grid user
 /oracle/app/11.2.0/grid/cfgtoollogs/configToolAllCommands RESPONSE_FILE=/home/grid/cfgrsp.properties
 
 oracle.assistants.server|S_SYSPASSWORD=oracle
