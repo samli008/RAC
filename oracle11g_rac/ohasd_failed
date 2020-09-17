@@ -1,0 +1,19 @@
+vi /usr/lib/systemd/system/ohas.service
+
+[Unit]
+Description=Oracle High Availability Services
+After=syslog.target
+
+[Service]
+ExecStart=/etc/init.d/init.ohasd run >/dev/null 2>&1 Type=simple
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+chmod 777 /usr/lib/systemd/system/ohas.service
+
+systemctl daemon-reload
+systemctl enable ohas.service
+systemctl start ohas.service
+systemctl status ohas.service
