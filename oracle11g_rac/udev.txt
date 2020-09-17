@@ -10,6 +10,13 @@
 #scan ip
 192.168.6.240 racscan
 
+# install rlwrap for sqlplus
+yum -y install gcc make readline readline-devel
+tar zxvf rlwrap-0.42.tar.gz
+cd rlwrap-0.42
+./configure
+make && make install
+
 vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
 KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
