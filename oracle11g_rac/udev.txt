@@ -18,8 +18,8 @@
 
 vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
-KERNEL=="sdb",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
-KERNEL=="sdc",NAME="asmdisk_data1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="drbd1",SYMLINK+="asm/asm-data",OWNER="grid",GROUP="asmadmin",MODE="0660"
 
 vi /etc/udev/rules.d/12-dm-permissions.rules
 
@@ -44,21 +44,11 @@ ls -l /dev/iscsi/*
 
 # su - oracle  （su - grid）
 
-ssh-keygen -t rsa
-ssh-keygen -t dsa
+ssh-keygen
 
 cat ~/.ssh/id_rsa.pub >> ./.ssh/authorized_keys
-cat ~/.ssh/id_dsa.pub >> ./.ssh/authorized_keys
-ssh rac2 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-ssh rac2 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
-ssh rac3 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-ssh rac3 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
-ssh rac4 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-ssh rac4 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
-scp ~/.ssh/authorized_keys rac2:~/.ssh/authorized_keys
-scp ~/.ssh/authorized_keys rac3:~/.ssh/authorized_keys
-scp ~/.ssh/authorized_keys rac4:~/.ssh/authorized_keys
-
+ssh c05 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+scp ~/.ssh/authorized_keys c05:~/.ssh/authorized_keys
 
 #on install node run with root user
 
