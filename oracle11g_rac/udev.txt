@@ -1,20 +1,14 @@
-#public ip ent1
-192.168.100.41	rac1
-192.168.100.42	rac2
-192.168.100.43	rac3
-192.168.100.44	rac4
-#priv ip ent2
-172.168.101.41	rac1prv
-172.168.101.42  rac2prv
-172.168.101.43  rac3prv
-172.168.101.44  rac4prv
+#public ip eth0
+192.168.6.70 c04
+192.168.6.71 c05
+#priv ip eth1
+192.168.100.70 c04prv
+192.168.100.71 c05prv
 #vip ip
-192.168.100.45	rac1vip
-192.168.100.46	rac2vip
-192.168.100.47  rac3vip
-192.168.100.48  rac4vip
+192.168.6.241 c04vip
+192.168.6.242 c05vip
 #scan ip
-192.168.100.49	racscan
+192.168.6.240 racscan
 
 vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
