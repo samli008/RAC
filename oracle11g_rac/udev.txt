@@ -34,8 +34,6 @@ ls -l /dev/iscsi/*
 /dev/iscsi/asm-data
 /dev/iscsi/asm-ocr
 
-
-
 # su - oracle  （su - grid）
 
 ssh-keygen
