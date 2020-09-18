@@ -17,15 +17,21 @@ cd rlwrap-0.42
 ./configure
 make && make install
 
+# udev rule config share block storage with DRBD
 vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
 KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
 KERNEL=="drbd1",SYMLINK+="asm/asm-data",OWNER="grid",GROUP="asmadmin",MODE="0660"
 
+# udev rule config share block storage with iscsi multipath
 vi /etc/udev/rules.d/12-dm-permissions.rules
 
 ENV{DM_NAME}=="ocr",OWNER:="grid",GROUP:="asmadmin",MODE:="660",SYMLINK+="iscsi/asm-$env{DM_NAME}"
 ENV{DM_NAME}=="data",OWNER:="grid",GROUP:="asmadmin",MODE:="660",SYMLINK+="iscsi/asm-$env{DM_NAME}"
+
+# effect udev rule
+udevadm control --reload-rules
+udevadm trigger
 
 cp /usr/share/doc/device-mapper-multipath-0.4.9/multipath.conf /etc/
 
