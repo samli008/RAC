@@ -144,7 +144,7 @@ insert into t01 values(4,sysdate);
 
 commit;
 
-select * from t01
+select * from t01;
 
 select table_name from tabs;
 
