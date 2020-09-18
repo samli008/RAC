@@ -79,6 +79,7 @@ ocrcheck
 crsctl query css votedisk
 crsctl status res -t
 crs_stat -t
+srvctl status listener
 lsnrctl status
 asmcmd lsdg  #su - grid 
 
