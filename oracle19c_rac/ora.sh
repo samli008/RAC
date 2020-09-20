@@ -42,8 +42,8 @@ make && make install
 
 # prepare ASM disk on both nodes
 cat > /etc/udev/rules.d/99-oracle-asmdevices.rules << EOF
-KERNEL=="drbd0",NAME="asmdisk_ocr1",OWNER="grid",GROUP="asmadmin",MODE="0660"
-KERNEL=="drbd1",NAME="asmdisk_data1",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
+KERNEL=="drbd1",SYMLINK+="asm/asm-data",OWNER="grid",GROUP="asmadmin",MODE="0660"
 EOF
 systemctl restart systemd-udev-trigger
 ll /dev |grep asm
