@@ -135,11 +135,6 @@ unzip /home/oracle/LINUX.X64_193000_db_home.zip
 ./runInstaller
 
 # create database
-## check oracle dir permission as root on both nodes
-cd /opt/oracle/app/oracle/product/19c/dbhome_1/bin
-ll -d oracle
-chown oracle:asmadmin oracle
-chmod 6751 oracle
 crsctl stop crs
 crsctl start crs
 crsctl check crs
@@ -187,7 +182,9 @@ insert into t01 values(4,sysdate);
 commit;
 
 select * from t01
-
 select table_name from tabs;
-
 show user;
+
+# delete database
+
+dbca -silent -deleteDatabase -sourceDB oracledb
