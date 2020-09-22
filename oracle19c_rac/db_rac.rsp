@@ -1,0 +1,22 @@
+${ORACLE_HOME}/runInstaller -ignorePrereq -waitforcompletion -silent \
+-responseFile ${ORACLE_HOME}/install/response/db_install.rsp \
+oracle.install.option=INSTALL_DB_SWONLY \
+ORACLE_HOSTNAME=c02 \
+UNIX_GROUP_NAME=oinstall \
+INVENTORY_LOCATION=/opt/oracle/oraInventory \
+SELECTED_LANGUAGES=en,en_GB \
+ORACLE_HOME=/opt/oracle/app/oracle/product/19c/dbhome_1 \
+ORACLE_BASE=/opt/oracle/app/oracle \
+oracle.install.db.InstallEdition=EE \
+oracle.install.db.OSDBA_GROUP=dba \
+oracle.install.db.OSOPER_GROUP=oinstall \
+oracle.install.db.OSBACKUPDBA_GROUP=dba \
+oracle.install.db.OSDGDBA_GROUP=dba \
+oracle.install.db.OSKMDBA_GROUP=dba \
+oracle.install.db.OSRACDBA_GROUP=dba \
+oracle.install.db.CLUSTER_NODES=c02,c03 \
+oracle.install.db.isRACOneInstall=false \
+oracle.install.db.rac.serverpoolCardinality=0 \
+oracle.install.db.config.starterdb.type=GENERAL_PURPOSE \
+oracle.install.db.ConfigureAsContainerDB=false \
+SECURITY_UPDATES_VIA_MYORACLESUPPORT=false \
