@@ -121,7 +121,7 @@ sqlplus "/as sysasm"
 desc v$asm_diskgroup;
 select NAME,TOTAL_MB,FREE_MB from v$asm_diskgroup;
 
-create diskgroup DGDATA01 external redundancy disk '/dev/drbd1';
+create diskgroup DGDATA01 external redundancy disk '/dev/asm/asm-data';
 alter diskgroup DGDATA01 dismount;
 alter diskgroup DGDATA01 mount;
 drop diskgroup DGDATA01;
