@@ -157,7 +157,7 @@ INSTANCE_NAME	 STATUS       HOST_NAME
 oracledb1		 OPEN	      ora1
 oracledb2		 OPEN	      ora2
 
-create tablespace liyang01 datafile '+DATA' size 20m;
+create tablespace liyang01 datafile '+dgdata01' size 20m;
 select name from v$tablespace;
 select name from v$datafile;
 drop tablespace liyang01 including contents and datafiles;

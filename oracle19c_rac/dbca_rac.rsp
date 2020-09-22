@@ -1,0 +1,17 @@
+dbca -silent -createDatabase \
+ -templateName General_Purpose.dbc \
+ -gdbname oracledb -responseFile NO_VALUE \
+ -characterSet AL32UTF8 \
+ -sysPassword oracle \
+ -systemPassword oracle \
+ -createAsContainerDatabase false \
+ -databaseType MULTIPURPOSE \
+ -automaticMemoryManagement false \
+ -totalMemory 1024 \
+ -redoLogFileSize 50 \
+ -emConfiguration NONE \
+ -ignorePreReqs \
+ -nodelist c02,c03 \
+ -storageType ASM \
+ -diskGroupName +DGDATA01 \
+ -asmsnmpPassword oracle \
