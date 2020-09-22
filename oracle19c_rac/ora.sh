@@ -97,7 +97,7 @@ su - grid
 vncserver :1
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
-./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "rac1 rac2" -advanced -noPromptPassphrase
+./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "c02 c03" -advanced -noPromptPassphrase
 ./gridSetup.sh
 
 # with root
