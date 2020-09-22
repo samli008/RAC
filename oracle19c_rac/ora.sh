@@ -124,8 +124,14 @@ drop diskgroup DGDATA01;
 su - oracle
 cd $ORACLE_HOME
 unzip /home/oracle/LINUX.X64_193000_db_home.zip
-./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "rac1 rac2" -advanced -noPromptPassphrase
+./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "c02 c03" -advanced -noPromptPassphrase
 ./runInstaller
+
+# with root
+/opt/oracle/oraInventory/orainstRoot.sh
+/opt/oracle/app/19c/grid/root.sh
+# with grid user
+/opt/oracle/app/19c/grid/gridSetup.sh -executeConfigTools -responseFile /opt/oracle/app/19c/grid/install/response/gridsetup.rsp [-silent]
 
 # create database
 ## check oracle dir permission as root on both nodes
