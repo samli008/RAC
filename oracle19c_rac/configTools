@@ -1,4 +1,4 @@
-${ORACLE_HOME}/gridSetup.sh -silent -executeConfigTools  -waitforcompletion \
+${ORACLE_HOME}/gridSetup.sh -silent -executeConfigTools -waitforcompletion \
  -responseFile ${ORACLE_HOME}/install/response/gridsetup.rsp \
 INVENTORY_LOCATION=/opt/oracle/oraInventory \
 SELECTED_LANGUAGES=en,en_GB \
