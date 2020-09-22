@@ -1,0 +1,36 @@
+${ORACLE_HOME}/gridSetup.sh -silent -executeConfigTools  -waitforcompletion \
+ -responseFile ${ORACLE_HOME}/install/response/gridsetup.rsp \
+INVENTORY_LOCATION=/opt/oracle/oraInventory \
+SELECTED_LANGUAGES=en,en_GB \
+oracle.install.option=CRS_CONFIG \
+ORACLE_BASE=/opt/oracle/app/grid \
+oracle.install.asm.OSDBA=asmdba \
+oracle.install.asm.OSASM=asmadmin \
+oracle.install.asm.OSOPER=asmoper \
+oracle.install.crs.config.scanType=LOCAL_SCAN \
+oracle.install.crs.config.gpnp.scanName=racscan \
+oracle.install.crs.config.gpnp.scanPort=1521 \
+oracle.install.crs.config.ClusterConfiguration=STANDALONE \
+oracle.install.crs.config.configureAsExtendedCluster=false \
+oracle.install.crs.config.clusterName=gridcluster \
+oracle.install.crs.config.gpnp.configureGNS=false \
+oracle.install.crs.config.autoConfigureClusterNodeVIP=false \
+oracle.install.crs.config.clusterNodes=c02:c02vip,c03:c03vip \
+oracle.install.crs.config.networkInterfaceList=eth0:192.168.8.0:1,eth1:192.168.100.0:5 \
+oracle.install.asm.configureGIMRDataDG=false \
+oracle.install.crs.config.useIPMI=false \
+oracle.install.asm.storageOption=ASM \
+oracle.install.asmOnNAS.configureGIMRDataDG=false \
+oracle.install.asm.SYSASMPassword=oracle \
+oracle.install.asm.diskGroup.name=DGGRID1 \
+oracle.install.asm.diskGroup.redundancy=EXTERNAL \
+oracle.install.asm.diskGroup.AUSize=4 \
+oracle.install.asm.diskGroup.disks=/dev/asm/asm-ocr \
+oracle.install.asm.diskGroup.diskDiscoveryString=/dev/asm/* \
+oracle.install.asm.configureAFD=false \
+oracle.install.asm.monitorPassword=oracle \
+oracle.install.crs.configureRHPS=false \
+oracle.install.crs.config.ignoreDownNodes=false \
+oracle.install.config.managementOption=NONE \
+oracle.install.config.omsPort=0 \
+oracle.install.crs.rootconfig.executeRootScript=false \
