@@ -93,20 +93,21 @@ env |grep ORACLE
 systemctl set-default graphical
 systemctl set-default multi-user
 yum -y install tigervnc-server
-su - grid
 vncserver :1
+
+chown -R grid:oinstall /soft
+su - grid
 cd $ORACLE_HOME
 unzip /home/grid/LINUX.X64_193000_grid_home.zip
 ./oui/prov/resources/scripts/sshUserSetup.sh -user grid -hosts "c02 c03" -advanced -noPromptPassphrase
 ./gridSetup.sh
 
-# with root
+# with root on each node
 /opt/oracle/oraInventory/orainstRoot.sh
 /opt/oracle/app/19c/grid/root.sh
-# with grid user
-/opt/oracle/app/19c/grid/gridSetup.sh -executeConfigTools -responseFile /opt/oracle/app/19c/grid/install/response/gridsetup.rsp [-silent]
 
-asmca
+# with grid only install node
+/opt/oracle/app/19c/grid/gridSetup.sh -executeConfigTools -responseFile /opt/oracle/app/19c/grid/install/response/gridsetup.rsp [-silent]
 
 # grid check
 su - grid
