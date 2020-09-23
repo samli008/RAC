@@ -129,6 +129,7 @@ alter diskgroup DGDATA01 mount;
 drop diskgroup DGDATA01;
 
 # install oracle
+chown -R oracle:oinstall /soft
 su - oracle
 cd $ORACLE_HOME
 unzip /home/oracle/LINUX.X64_193000_db_home.zip
