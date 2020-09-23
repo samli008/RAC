@@ -135,6 +135,9 @@ unzip /home/oracle/LINUX.X64_193000_db_home.zip
 ./oui/prov/resources/scripts/sshUserSetup.sh -user oracle -hosts "c02 c03" -advanced -noPromptPassphrase
 ./runInstaller
 
+# with root on each node
+/opt/oracle/app/oracle/product/19c/dbhome_1/root.sh
+
 # create database
 crsctl stop crs
 crsctl start crs
