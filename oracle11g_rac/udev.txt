@@ -58,8 +58,8 @@ scp ~/.ssh/authorized_keys c05:~/.ssh/authorized_keys
 #on install node run with root user
 
 mkdir /soft
-su - grid
 chown -R grid:oinstall /soft
+su - grid
 unzip p13390677_112040_Linux-x86-64_1of7.zip && unzip p13390677_112040_Linux-x86-64_2of7.zip
 unzip p13390677_112040_Linux-x86-64_3of7.zip
 
