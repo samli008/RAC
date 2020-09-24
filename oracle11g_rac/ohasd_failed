@@ -1,4 +1,4 @@
-vi /usr/lib/systemd/system/ohas.service
+cat > /usr/lib/systemd/system/ohas.service << EOF
 
 [Unit]
 Description=Oracle High Availability Services
@@ -10,6 +10,7 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
+EOF
 
 chmod 777 /usr/lib/systemd/system/ohas.service
 
