@@ -18,10 +18,11 @@ cd rlwrap-0.42
 make && make install
 
 # udev rule config share block storage with DRBD
-vi /etc/udev/rules.d/99-oracle-asmdevices.rules
+cat > /etc/udev/rules.d/99-oracle-asmdevices.rules << EOF
 
 KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
 KERNEL=="drbd1",SYMLINK+="asm/asm-data",OWNER="grid",GROUP="asmadmin",MODE="0660"
+EOF
 
 # udev rule config share block storage with iscsi multipath
 vi /etc/udev/rules.d/12-dm-permissions.rules
