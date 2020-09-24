@@ -19,7 +19,6 @@ make && make install
 
 # udev rule config share block storage with DRBD
 cat > /etc/udev/rules.d/99-oracle-asmdevices.rules << EOF
-
 KERNEL=="drbd0",SYMLINK+="asm/asm-ocr",OWNER="grid",GROUP="asmadmin",MODE="0660"
 KERNEL=="drbd1",SYMLINK+="asm/asm-data",OWNER="grid",GROUP="asmadmin",MODE="0660"
 EOF
