@@ -1,5 +1,4 @@
 cat > /usr/lib/systemd/system/ohas.service << EOF
-
 [Unit]
 Description=Oracle High Availability Services
 After=syslog.target
