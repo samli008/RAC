@@ -211,3 +211,6 @@ crsctl check cluster -all
 
 crsctl stop crs
 crsctl start crs
+
+# su - oracle
+select open_mode from v$database;
