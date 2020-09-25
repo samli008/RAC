@@ -214,3 +214,6 @@ crsctl start crs
 
 # su - oracle
 select open_mode from v$database;
+
+# with root
+ps -ef |grep pmon
