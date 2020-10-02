@@ -13,4 +13,3 @@ commit;
 desc tb01;
 select table_name from tabs;
 show user;
-
