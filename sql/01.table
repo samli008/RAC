@@ -1,0 +1,16 @@
+# create table
+create table tb01(
+num char(5) not null,
+name varchar2(10) not null,
+sex char(2) not null,
+age number(2),
+tel char(11)
+);
+
+commit;
+
+# view tables;
+desc tb01;
+select table_name from tabs;
+show user;
+
