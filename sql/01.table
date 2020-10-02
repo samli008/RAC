@@ -9,6 +9,15 @@ tel char(11)
 
 commit;
 
+# add column
+alter table tb01 add email char(50);
+
+# modify column
+alter table tb01 modify email varchar2(60);
+
+# delete column
+alter table tb01 drop column email;
+
 # view tables;
 desc tb01;
 select table_name from tabs;
