@@ -1,0 +1,7 @@
+# primary key
+create table tb01(
+num char(5) primary key,
+name varchar2(10) not null,
+mail varchar2(30) not null,
+tel char(11) not null
+);
