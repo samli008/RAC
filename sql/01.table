@@ -22,3 +22,6 @@ alter table tb01 drop column email;
 desc tb01;
 select table_name from tabs;
 show user;
+
+# delete table
+drop table t01;
