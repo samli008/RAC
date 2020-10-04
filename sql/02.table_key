@@ -5,3 +5,11 @@ name varchar2(10) not null,
 mail varchar2(30) not null,
 tel char(11) not null
 );
+
+create table tb01(
+num char(5) not null,
+name varchar2(10) not null,
+mail varchar2(30) not null,
+tel char(11) not null,
+primary key(num)
+);
