@@ -33,3 +33,6 @@ tel char(11) not null,
 cid char(3) not null
 );
 alter table students add constraint fk_student_class foreign key(cid) references class(class_id) on delete cascade;
+
+# delete foreign key
+alter table students drop constraint fk_student_class;
