@@ -23,3 +23,13 @@ tel char(11) not null,
 );
 
 alter table tb01 add constraints pk_tb01 primary key(num);
+
+# union primary key
+create table grade(
+course_id char(3),
+course_name varchar(50),
+num char(5),
+name varchar2(10),
+score number(3),
+primary key(course_id,num)
+);
