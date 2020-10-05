@@ -33,3 +33,12 @@ name varchar2(10),
 score number(3),
 primary key(course_id,num)
 );
+
+create table grade(
+course_id char(3),
+course_name varchar(50),
+num char(5),
+name varchar2(10),
+score number(3)
+);
+alter table grade add constraints pk_grade primary key(course_id,num);
