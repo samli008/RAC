@@ -16,7 +16,7 @@ cid char(3) not null,
 constraint fk_student_class foreign key(cid) references class(class_id) on delete cascade
 );
 
-# alter add foreign key
+# alter table add foreign key
 create table class(
 class_id char(3) primary key,
 class_name varchar(40) not null,
