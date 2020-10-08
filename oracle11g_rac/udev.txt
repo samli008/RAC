@@ -51,9 +51,10 @@ ls -l /dev/iscsi/*
 
 ssh-keygen
 
+sed -i 's/#   StrictHostKeyChecking ask/StrictHostKeyChecking no/g' /etc/ssh/ssh_config
 cat ~/.ssh/id_rsa.pub >> ./.ssh/authorized_keys
-ssh c05 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-scp ~/.ssh/authorized_keys c05:~/.ssh/authorized_keys
+sshpass -p oracle ssh rac2 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+sshpass -p oracle scp ~/.ssh/authorized_keys rac2:~/.ssh/authorized_keys
 
 #on install node run with root user
 
