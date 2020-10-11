@@ -1,0 +1,11 @@
+# shutdown database on each node
+shutdown immediate
+
+# startup database to mount mode only one node
+startup mount
+alter database archivelog;
+alter database open;
+
+# startup database other node
+startup
+archive log list
