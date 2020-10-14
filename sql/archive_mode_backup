@@ -51,6 +51,6 @@ run{
 }
 
 # restore database with rman target /
-list backup of database;
+list backup;
 restore datafile 6;
 alter database open;
