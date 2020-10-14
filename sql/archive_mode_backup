@@ -9,3 +9,15 @@ alter database open;
 # startup database other node
 startup
 archive log list
+
+# host cp backup tablespace
+alter tablespace liyang01 begin backup;
+host cp /racdb/datafile/liyang01.268.1051922209 /home/oracle/
+alter tablespace liyang01 end backup;
+
+# testing database error
+shutdown abort
+rm -f /racdb/datafile/liyang01.268.1051922209
+select file#,error from v$recovery_file
+
+# rman backup database;
