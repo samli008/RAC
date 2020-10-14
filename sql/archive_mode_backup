@@ -50,5 +50,7 @@ run{
    release channel c1;
 }
 
-restore datafile from '/home/oracle/backup/tbs_liyang01_RACDB_20201014_9';
+# restore database with rman target /
+list backup of database;
+restore datafile 6;
 alter database open;
