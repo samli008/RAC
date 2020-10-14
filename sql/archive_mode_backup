@@ -15,9 +15,13 @@ alter tablespace liyang01 begin backup;
 host cp /racdb/datafile/liyang01.268.1051922209 /home/oracle/
 alter tablespace liyang01 end backup;
 
-# testing database error
+# testing database error and recover database;
 shutdown abort
 rm -f /racdb/datafile/liyang01.268.1051922209
+startup
 select file#,error from v$recover_file
+host cp /home/oracle/liyang01.268.1051922209 /racdb/datafile/
+recover datafile 6;
+alter database open;
 
 # rman backup database;
