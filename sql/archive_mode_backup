@@ -25,3 +25,11 @@ recover datafile 6;
 alter database open;
 
 # rman backup database;
+rman target /
+backup database;
+
+run{
+   allocate channel c1 type disk format '/home/oracle/backup/full_%d_%T_%s';
+   backup database include current controlfile;
+   release channel c1;
+}
