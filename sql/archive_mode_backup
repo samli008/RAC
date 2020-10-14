@@ -39,3 +39,10 @@ run{
    backup tablespace liyang01;
    release channel c1;
 }
+
+select file_id,file_name from dba_data_files;
+run{
+   allocate channel c1 type disk format '/home/oracle/backup/datafile_4_6_%d_%T_%s';
+   backup datafile 4,6;
+   release channel c1;
+}
