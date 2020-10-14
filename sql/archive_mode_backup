@@ -35,6 +35,7 @@ run{
 }
 
 run{
-   allocate channel c1 type disk format '/home/oracle/backup/tbs_liyang01_%d_%T_%s';   backup tablespace liyang01;
+   allocate channel c1 type disk format '/home/oracle/backup/tbs_liyang01_%d_%T_%s';
+   backup tablespace liyang01;
    release channel c1;
 }
