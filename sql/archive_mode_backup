@@ -18,6 +18,6 @@ alter tablespace liyang01 end backup;
 # testing database error
 shutdown abort
 rm -f /racdb/datafile/liyang01.268.1051922209
-select file#,error from v$recovery_file
+select file#,error from v$recover_file
 
 # rman backup database;
