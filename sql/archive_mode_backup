@@ -50,7 +50,7 @@ run{
    release channel c1;
 }
 
-# restore database with rman target / and startup mount database
+# restore datafile with rman target / and startup mount database
 list backup;
 restore datafile 6;
 alter database open;
