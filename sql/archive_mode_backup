@@ -19,7 +19,7 @@ alter tablespace liyang01 end backup;
 shutdown abort
 rm -f /racdb/datafile/liyang01.268.1051922209
 startup
-select file#,error from v$recover_file
+select file#,error from v$recover_file;
 host cp /home/oracle/liyang01.268.1051922209 /racdb/datafile/
 recover datafile 6;
 alter database open;
@@ -49,3 +49,6 @@ run{
    backup datafile 4,6;
    release channel c1;
 }
+
+restore datafile from '/home/oracle/backup/tbs_liyang01_RACDB_20201014_9';
+alter database open;
