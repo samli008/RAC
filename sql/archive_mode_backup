@@ -40,7 +40,10 @@ run{
    release channel c1;
 }
 
+# sqlplus / as sysdba
 select file_id,file_name from dba_data_files;
+
+# rman target /
 run{
    allocate channel c1 type disk format '/home/oracle/backup/datafile_4_6_%d_%T_%s';
    backup datafile 4,6;
