@@ -199,6 +199,10 @@ su - grid
 
 ocrcheck
 crs_stat -t
+crs_stop -all
+crs_start -all
+
+crsctl start res ora.crsd -init
 
 srvctl status database -d racdb
 srvctl status asm -a
